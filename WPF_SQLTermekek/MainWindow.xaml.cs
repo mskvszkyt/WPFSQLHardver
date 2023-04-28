@@ -1,6 +1,7 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -151,6 +152,56 @@ namespace WpfAppSQLTermekek
         private void Window_Closed(object sender, EventArgs e)
         {
             CloseDatabase();
+        }
+
+        private void btnMentes_Click(object sender, RoutedEventArgs e)
+        {
+            StreamWriter sw = new StreamWriter("mentes.csv");
+            foreach (Termek item in termekek)
+            {
+                sw.WriteLine(item.ToString());
+            }
+            sw.Close();
+        }
+
+        private void btnHTML_Click(object sender, RoutedEventArgs e)
+        {
+            string htmlCode = @"<!DOCTYPE html>
+<html lang='hu'>
+<head>
+    <meta charset = 'UTF-8'>
+    <meta http - equiv = 'X-UA-Compatible' content = 'IE=edge'>
+    <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0'>
+    <title> Termékek </title>
+    <style>
+        *{ margin: auto; }
+        th{border: 2px solid black;
+            color:darkblue;}
+        td{border: 2px solid black;
+            padding:10px;}
+        table{border-collapse: collapse;}
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th> Kategoria </th>
+            <th> Gyarto </th>
+            <th> Nev </th>
+            <th> Ar </th>
+            <th> Garido </th>
+        </tr> ";
+
+            foreach (Termek item in termekek)
+            {
+                htmlCode += $"<tr><td>{item.Kategoria}</td><td>{item.Gyarto}</td><td>{cbKategoria.Name}</td><td>{item.Ar}</td><td>{item.Garido}</td></tr> ";
+            }
+
+            htmlCode += "\n</table>\n</body>\n</html>";
+
+            StreamWriter sw = new StreamWriter("tablazat.html");
+            sw.Write(htmlCode);
+            sw.Close();
         }
     }
 }
