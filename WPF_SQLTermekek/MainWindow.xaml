@@ -24,8 +24,12 @@
                     Content="Szűrés a feltételekre" Click="btnSzukit_Click"/>
             <Button x:Name="btnMentes"
                     Margin="0 20 0 0"
-                    Content="Mentés CSV fájlba"/>
-
+                    Content="Mentés CSV fájlba" Click="btnMentes_Click"/>
+            
+            <Button x:Name="btnHTML"
+                    Margin="0 20 0 0"
+                    Content="Mentés HTML-be" Click="btnHTML_Click"/>
+               
         </StackPanel>
         <DataGrid  x:Name="dgTermekek" 
                    Grid.Column="1"
